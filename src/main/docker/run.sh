@@ -7,7 +7,7 @@ echo "******* Eureka Server has started"
 echo "********************************************************"
 echo "Waiting for the Rabbitmq server to start on port 5672"
 echo "********************************************************"
-while ! `nc -z my-rabbitmq 5672`; do sleep 3; done
+while ! `nc -z rabbitmq 5672`; do sleep 3; done
 echo "******** Rabbitmq Server has started "
 
 echo "********************************************************"

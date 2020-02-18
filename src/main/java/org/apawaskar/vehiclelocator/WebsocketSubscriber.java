@@ -7,8 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.sleuth.Sampler;
-import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
@@ -31,10 +29,7 @@ public class WebsocketSubscriber {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Bean
-	public Sampler defaultSampler() {
-		return new AlwaysSampler();
-	}
+	
 
 	@LoadBalanced
 	@Bean
@@ -48,7 +43,7 @@ public class WebsocketSubscriber {
 
 	@StreamListener(Sink.INPUT)
 	public void log(String msg) {
-		LOGGER.debug("Message recieved at websocket subscriber:" + msg);
+		LOGGER.info("Message recieved at websocket subscriber: {}", msg);
 
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
